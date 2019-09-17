@@ -1,5 +1,18 @@
 # postcards
 
+PWA che permette di creare template in html, pronti per essere utilizzati in mail builder.
+
+### Prima versione
+L'utente può selezionare dei template HTML e inserirli in un array, l'export prende il markup dei componenti e li concatena, poi lo stampa.
+
+### Seconda versione
+Introduzione dei componenti avanzati, l'utente può personalizzare i componenti in base a delle variabili, queste saranno definite all'interno del componente in Vue.
+
+### Terza versione
+Introduzione stili globali, l'utente potrà fissare delle variabili comuni a tutti i componenti, quindi velocizzando l'unificazione dello stile e delle variabili.
+
+---
+
 ## Project setup
 ```
 npm install
