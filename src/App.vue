@@ -16,13 +16,16 @@
         <div class="third scroll">
           <Lingot
             v-bind:lingot="this.lingot"
+            v-on:updateLingot="updateLingot"
             v-on:removeFromLingot="removeFromLingot"
           ></Lingot>
         </div>
       </div>
       <div class="column is-half final scroll" ref="final"> <!-- Componenti inseriti -->
-        <div v-for="(n, index) in lingot" v-bind:key="index">
-          <component v-bind:is="n"></component>
+        <div>
+          <div v-for="(n, index) in lingot" v-bind:key="index">
+            <component v-bind:is="n"></component>
+          </div>
         </div>
       </div>
     </div>
@@ -74,17 +77,21 @@ export default {
       this.lingot.push(n)
     },
     removeFromLingot(i) {
-      this.lingot.splice(i, 1);
+      this.lingot.splice(i, 1)
+    },
+    updateLingot(l) {
+      this.lingot = l
     },
     previewNugget(n) {
       this.currentPreview = this.currentPreview == n ? '' : n
     },
-    
+
     exportTemplate() {
       this.output = this.$refs.final.innerHTML
     },
   }
 }
+
 </script>
 
 <style>
