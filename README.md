@@ -1,9 +1,9 @@
 # postcards
 
-PWA che permette di creare template in html, pronti per essere utilizzati in mail builder.
+PWA che permette di creare template in html, pronti per essere utilizzati in mail builder. Le componenti sono chiamate Nugget, l'insieme di questi che compone un template è chiamato Ingot.
 
 ### Prima versione
-L'utente può selezionare dei template HTML e inserirli in un array, l'export prende il markup dei componenti e li concatena, poi lo stampa.
+L'utente può selezionare dei template HTML e inserirli in un array, l'export prende il markup dei componenti e li concatena, poi lo stampa. Successivamente si potrebbero rappresentare a schermo l'insieme dei componenti (slot?).
 
 ### Seconda versione
 Introduzione dei componenti avanzati, l'utente può personalizzare i componenti in base a delle variabili, queste saranno definite all'interno del componente in Vue.
