@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0163e8a1-bc34-42f0-b905-04ee12de9501/deploy-status)](https://app.netlify.com/sites/confident-leakey-2d5618/deploys)
+
 # postcards
 
 PWA che permette di creare template in html, pronti per essere utilizzati in mail builder. Le componenti sono chiamate Nugget, l'insieme di questi che compone un template è chiamato Ingot.

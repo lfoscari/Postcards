@@ -1,9 +1,18 @@
 <template>
-    <hr>
+  <div>
+    <hr />
+  </div>
 </template>
 
 <script>
 export default {
-    name: "HorizonalLine"
-}
+  name: "HorizonalLine",
+  data() {
+    return {
+      attributes: {
+        color: "#000"
+      }
+    };
+  }
+};
 </script>
