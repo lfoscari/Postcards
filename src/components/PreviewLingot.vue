@@ -10,7 +10,7 @@
       </keep-alive>
     </div>
     <Modal v-if="currentCustomization != undefined" v-on:clearPreview="clearPreview">
-      <template v-slot:header>ciao</template>
+      <template v-slot:header></template>
       <CustomizeNugget
         v-on:closeModal="clearPreview"
         v-bind:attributes="currentCustomization.attributes"

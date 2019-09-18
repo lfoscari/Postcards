@@ -36,8 +36,6 @@
 </template>
 
 <script>
-import Vue from "vue";
-
 import NuggetList from "./components/NuggetList.vue";
 import Lingot from "./components/Lingot.vue";
 import Modal from "./components/Modal.vue";
@@ -46,12 +44,6 @@ import PreviewLingot from "./components/PreviewLingot.vue";
 import Title from "./components/nuggets/Title.vue";
 import Paragraph from "./components/nuggets/Paragraph.vue";
 import HorizontalLine from "./components/nuggets/HorizontalLine.vue";
-
-var nuggetNames = {
-  Title: Title,
-  Paragraph: Paragraph,
-  HorizontalLine: HorizontalLine
-};
 
 export default {
   name: "app",
@@ -76,14 +68,6 @@ export default {
   },
   methods: {
     addToLingot(n) {
-      //   console.log(n, nuggetNames[n]);
-      //   var Nugget = this.$options.components[n];
-      //   var newNugget = new Nugget({
-      //     // el: this.$el.querySelector('.child-host'),
-      //     parent: this
-      //   });
-      //   //   var instance = new ComponentClass();
-      //   this.lingot.push(newNugget);
       this.lingot.push(n);
     },
     removeFromLingot(i) {
