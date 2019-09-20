@@ -26,6 +26,7 @@ import Modal from "./Modal.vue";
 import Title from "./nuggets/Title.vue";
 import Paragraph from "./nuggets/Paragraph.vue";
 import HorizontalLine from "./nuggets/HorizontalLine.vue";
+import Custom from "./nuggets/Custom.vue";
 
 export default {
   name: "PreviewLingot",
@@ -38,7 +39,8 @@ export default {
 
     Title,
     Paragraph,
-    HorizontalLine
+    HorizontalLine,
+    Custom
   },
   data() {
     return {

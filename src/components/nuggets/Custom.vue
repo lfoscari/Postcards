@@ -1,14 +1,14 @@
 <template>
-  <hr />
+  <div v-html="attributes.content"></div>
 </template>
 
 <script>
 export default {
-  name: "HorizonalLine",
+  name: "Custom",
   data() {
     return {
       attributes: {
-        color: "#000"
+        content: "<code>Custom</code>"
       }
     };
   }

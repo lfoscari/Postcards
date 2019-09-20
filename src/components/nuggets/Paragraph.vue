@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <p>Paragraph</p>
-  </div>
+  <p>Paragraph</p>
 </template>
 
 <script>

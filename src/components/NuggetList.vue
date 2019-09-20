@@ -1,13 +1,11 @@
 <template>
-  <div>
-    <ul>
-      <li class="button is-white is-fullwidth" v-for="n in nuggets" v-bind:key="n">
-        <a v-on:click="$emit('addToLingot', n)">Add</a>&nbsp;
-        <a v-on:click="$emit('previewNugget', n)">Preview</a>&nbsp;
-        <span>{{ n }}</span>
-      </li>
-    </ul>
-  </div>
+  <ul>
+    <li class="button is-white is-fullwidth" v-for="n in nuggets" v-bind:key="n">
+      <a v-on:click="$emit('addToLingot', n)">Add</a>&nbsp;
+      <a v-on:click="$emit('previewNugget', n)">Preview</a>&nbsp;
+      <span>{{ n }}</span>
+    </li>
+  </ul>
 </template>
 
 <script>
