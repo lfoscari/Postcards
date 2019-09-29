@@ -1,18 +1,16 @@
 <template>
-  <div class="ignore-css">
-    <div
-      v-for="(el, index) in lingot"
-      v-bind:key="index"
-      v-on:click="customizeAttributes(index, el)"
-    >
-      <keep-alive>
-        <component :ref="index + '-' + el" v-bind:is="el"></component>
-      </keep-alive>
+  <div>
+    <div class="ignore-css">
+      <div v-for="el in lingot" v-bind:key="el.index" v-on:click="customizeAttributes(el)">
+        <keep-alive>
+          <component :ref="el.index + '-' + el.component" v-bind:is="el.component"></component>
+        </keep-alive>
+      </div>
     </div>
-    <Modal v-if="currentCustomization != undefined" v-on:clearPreview="clearPreview">
+    <Modal v-if="currentCustomization != undefined" v-on:closeModal="closeModal">
       <template v-slot:header></template>
       <CustomizeNugget
-        v-on:closeModal="clearPreview"
+        v-on:closeModal="closeModal"
         v-bind:attributes="currentCustomization.attributes"
       ></CustomizeNugget>
     </Modal>
@@ -48,10 +46,10 @@ export default {
     };
   },
   methods: {
-    customizeAttributes(index, el) {
-      this.currentCustomization = this.$refs[index + "-" + el][0];
+    customizeAttributes(el) {
+      this.currentCustomization = this.$refs[el.index + "-" + el.component][0];
     },
-    clearPreview() {
+    closeModal() {
       this.currentCustomization = undefined;
       this.$emit("clearExport");
     }

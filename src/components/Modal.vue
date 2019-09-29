@@ -1,6 +1,6 @@
 <template>
   <div class="modal is-active">
-    <div class="modal-background" v-on:click="$emit('clearPreview')"></div>
+    <div class="modal-background" v-on:click="$emit('closeModal')"></div>
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-subtitle">
@@ -12,7 +12,7 @@
       </section>
       <footer class="modal-card-foot"></footer>
     </div>
-    <button class="modal-close is-large" aria-label="close" v-on:click="$emit('clearPreview')"></button>
+    <button class="modal-close is-large" aria-label="close" v-on:click="$emit('closeModal')"></button>
   </div>
 </template>
 
