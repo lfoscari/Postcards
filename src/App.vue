@@ -13,8 +13,8 @@
                 <input class="input" type="text" placeholder="Title" v-model="page_data.title" />
               </div>
             </div>
-            <AddField target="page_data.stylesheet" v-bind:archive="page_data.stylesheets"></AddField>
-            <AddField target="page_data.script" v-bind:archive="page_data.scripts"></AddField>
+            <AddField target="stylesheet" v-bind:archive="page_data.stylesheets"></AddField>
+            <AddField target="script" v-bind:archive="page_data.scripts"></AddField>
           </Modal>
           <button class="button is-light" v-on:click="editConfig = true">Configuration</button>
         </div>
@@ -61,7 +61,6 @@ import AddField from "./components/AddField.vue";
 
 import Title from "./components/nuggets/Title.vue";
 import Paragraph from "./components/nuggets/Paragraph.vue";
-import HorizontalLine from "./components/nuggets/HorizontalLine.vue";
 import Custom from "./components/nuggets/Custom.vue";
 
 export default {
@@ -69,7 +68,7 @@ export default {
   data() {
     return {
       lingot: [],
-      nuggets: ["Title", "Paragraph", "HorizontalLine", "Custom"],
+      nuggets: ["Title", "Paragraph", "Custom"],
       output: "",
       currentPreview: "",
       editConfig: false,
@@ -90,7 +89,6 @@ export default {
     // Nuggets
     Title,
     Paragraph,
-    HorizontalLine,
     Custom
   },
   methods: {
@@ -113,10 +111,9 @@ export default {
     },
 
     exportTemplate() {
-      this.output = "";
+      this.output = "<html>\n<head>\n";
       if (this.page_data.title)
-        this.output +=
-          "<html>\n<head>\n<title>" + this.page_data.title + "</title>\n";
+        this.output += "\t<title>" + this.page_data.title + "</title>\n";
       this.page_data.scripts.forEach(
         // Vue ha paura della parola <\script>...
         // eslint-disable-next-line

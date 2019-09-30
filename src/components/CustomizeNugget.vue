@@ -5,7 +5,9 @@
     v-model="model"
     input-wrapping-class="control"
     v-on:submit="$emit('closeModal')"
-  ></EditJSON>
+  >
+    <button v-on:click="$emit('closeModal')">Close</button>
+  </EditJSON>
 </template>
 
 <script>
