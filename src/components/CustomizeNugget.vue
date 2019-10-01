@@ -1,13 +1,10 @@
 <template>
   <EditJSON
-    ref="JsonEditor"
     v-bind:schema="schema"
     v-model="model"
     input-wrapping-class="control"
     v-on:submit="$emit('closeModal')"
-  >
-    <button v-on:click="$emit('closeModal')">Close</button>
-  </EditJSON>
+  ></EditJSON>
 </template>
 
 <script>

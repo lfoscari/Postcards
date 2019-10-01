@@ -37,7 +37,7 @@
         <!-- Preview componenti inseriti -->
         <PreviewLingot
           v-on:nuggetList="fillNuggetList"
-          v-on:clearExport="this.output = ''"
+          v-on:clearExport="output = ''"
           v-bind:lingot="this.lingot"
         ></PreviewLingot>
       </div>
@@ -59,7 +59,6 @@ export default {
       lingot: [],
       nuggets: [],
       output: "",
-      currentPreview: "",
       editConfig: false,
       page_data: {
         title: "",
@@ -76,8 +75,8 @@ export default {
     Modal
   },
   methods: {
-    fillNuggetList(l) {
-      this.nuggets = l;
+    fillNuggetList(list) {
+      this.nuggets = list;
     },
     addToLingot(n) {
       this.lingot.push({
