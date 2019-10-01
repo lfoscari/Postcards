@@ -21,11 +21,7 @@
         <hr />
         <!-- Lista componenti diponibili -->
         <div>
-          <NuggetList
-            v-bind:nuggets="this.nuggets"
-            v-on:addToLingot="addToLingot"
-            v-on:previewNugget="previewNugget"
-          ></NuggetList>
+          <NuggetList v-bind:nuggets="this.nuggets" v-on:addToLingot="addToLingot"></NuggetList>
         </div>
         <hr />
         <!-- Componenti inseriti -->
@@ -39,36 +35,29 @@
       </div>
       <div class="column is-half final scroll" ref="final">
         <!-- Preview componenti inseriti -->
-        <PreviewLingot v-on:clearExport="this.output = ''" v-bind:lingot="this.lingot"></PreviewLingot>
+        <PreviewLingot
+          v-on:nuggetList="fillNuggetList"
+          v-on:clearExport="this.output = ''"
+          v-bind:lingot="this.lingot"
+        ></PreviewLingot>
       </div>
     </div>
-
-    <Modal v-if="this.currentPreview != ''" v-on:closeModal="currentPreview = ''">
-      <template v-slot:header>{{ currentPreview }}</template>
-      <div class="ignore-css">
-        <component v-bind:is="currentPreview"></component>
-      </div>
-    </Modal>
   </div>
 </template>
 
 <script>
 import NuggetList from "./components/NuggetList.vue";
 import Lingot from "./components/Lingot.vue";
-import Modal from "./components/Modal.vue";
 import PreviewLingot from "./components/PreviewLingot.vue";
 import AddField from "./components/AddField.vue";
-
-import Title from "./components/nuggets/Title.vue";
-import Paragraph from "./components/nuggets/Paragraph.vue";
-import Custom from "./components/nuggets/Custom.vue";
+import Modal from "./components/Modal.vue";
 
 export default {
   name: "app",
   data() {
     return {
       lingot: [],
-      nuggets: ["Title", "Paragraph", "Custom"],
+      nuggets: [],
       output: "",
       currentPreview: "",
       editConfig: false,
@@ -82,16 +71,14 @@ export default {
   components: {
     Lingot,
     NuggetList,
-    Modal,
     PreviewLingot,
     AddField,
-
-    // Nuggets
-    Title,
-    Paragraph,
-    Custom
+    Modal
   },
   methods: {
+    fillNuggetList(l) {
+      this.nuggets = l;
+    },
     addToLingot(n) {
       this.lingot.push({
         component: n,
@@ -104,10 +91,6 @@ export default {
     updateLingot(l) {
       this.lingot = l;
       if (this.output != "") this.exportTemplate();
-    },
-
-    previewNugget(nugget) {
-      this.currentPreview = this.currentPreview == nugget ? "" : nugget;
     },
 
     exportTemplate() {

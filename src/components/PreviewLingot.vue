@@ -18,12 +18,16 @@
 </template>
 
 <script>
+import Vue from "vue";
 import CustomizeNugget from "./CustomizeNugget.vue";
 import Modal from "./Modal.vue";
 
-import Title from "./nuggets/Title.vue";
-import Paragraph from "./nuggets/Paragraph.vue";
-import Custom from "./nuggets/Custom.vue";
+// Import all nuggets
+const req = require.context("./nuggets/", true, /\.(js|vue)$/i);
+req.keys().map(key => {
+  const name = key.match(/\w+/)[0];
+  return Vue.component(name, req(key).default);
+});
 
 export default {
   name: "PreviewLingot",
@@ -32,11 +36,7 @@ export default {
   },
   components: {
     CustomizeNugget,
-    Modal,
-
-    Title,
-    Paragraph,
-    Custom
+    Modal
   },
   data() {
     return {
@@ -51,6 +51,15 @@ export default {
       this.currentCustomization = undefined;
       this.$emit("clearExport");
     }
+  },
+  mounted() {
+    this.$emit(
+      "nuggetList",
+      req
+        .keys()
+        .map(l => l.match(/\w+/)[0])
+        .reverse()
+    );
   }
 };
 </script>
