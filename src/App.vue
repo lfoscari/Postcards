@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="container hero-body">
     <div class="columns">
-      <div class="column vertical is-half">
+      <div class="column vertical">
         <div>
           <Modal v-if="this.editConfig" v-on:closeModal="editConfig = false">
             <button class="button" v-on:click="exportTemplate">Export</button>
@@ -33,7 +33,7 @@
           ></Lingot>
         </div>
       </div>
-      <div class="column is-half final scroll" ref="final">
+      <div class="column final scroll" ref="final">
         <!-- Preview componenti inseriti -->
         <PreviewLingot
           v-on:nuggetList="fillNuggetList"
@@ -52,11 +52,13 @@ import PreviewLingot from "./components/PreviewLingot.vue";
 import AddField from "./components/AddField.vue";
 import Modal from "./components/Modal.vue";
 
+import { mapState, mapGetter, mapActions } from "vuex";
+
 export default {
   name: "app",
   data() {
     return {
-      lingot: [],
+      // lingot: [],
       nuggets: [],
       output: "",
       editConfig: false,
@@ -94,21 +96,27 @@ export default {
 
     exportTemplate() {
       this.output = "<html>\n<head>\n";
-      if (this.page_data.title)
-        this.output += "\t<title>" + this.page_data.title + "</title>\n";
+      this.output +=
+        "\t<title>" +
+        (this.page_data.title != "" ? this.page_data.title : "Insert title") +
+        "</title>\n";
+      this.page_data.stylesheets.forEach(
+        s => (this.output += `\t<link href="${s}" rel="stylesheet">\n`)
+      );
       this.page_data.scripts.forEach(
         // Vue ha paura della parola <\script>...
         // eslint-disable-next-line
         s => (this.output += `\t<script src="${s}"></\script>\n`)
-      );
-      this.page_data.stylesheets.forEach(
-        s => (this.output += `\t<link href="${s}" rel="stylesheet">\n`)
       );
       this.output +=
         "</head>\n<body>\n\t" +
         this.$refs.final.childNodes[0].childNodes[0].innerHTML +
         "</body>\n</html>";
     }
+  },
+  computed: {
+    ...mapState(["lingot"])
+    // ...mapGetter(["lingot"])
   }
 };
 </script>
@@ -122,11 +130,9 @@ body,
   height: 100%;
 }
 
-.container,
 .columns,
 .column {
   max-height: 100%;
-  height: 100%;
 }
 
 .scroll {
