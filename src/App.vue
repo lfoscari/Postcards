@@ -20,26 +20,16 @@
         </div>
         <hr />
         <!-- Lista componenti diponibili -->
-        <div>
-          <NuggetList v-bind:nuggets="this.nuggets" v-on:addToLingot="addToLingot"></NuggetList>
-        </div>
+        <NuggetList></NuggetList>
         <hr />
         <!-- Componenti inseriti -->
         <div class="scroll">
-          <Lingot
-            v-bind:lingot="this.lingot"
-            v-on:updateLingot="updateLingot"
-            v-on:removeFromLingot="removeFromLingot"
-          ></Lingot>
+          <Lingot></Lingot>
         </div>
       </div>
       <div class="column final scroll" ref="final">
         <!-- Preview componenti inseriti -->
-        <PreviewLingot
-          v-on:nuggetList="fillNuggetList"
-          v-on:clearExport="output = ''"
-          v-bind:lingot="this.lingot"
-        ></PreviewLingot>
+        <PreviewLingot v-on:clearExport="output = ''" v-bind:lingot="this.lingot"></PreviewLingot>
       </div>
     </div>
   </div>
@@ -52,14 +42,12 @@ import PreviewLingot from "./components/PreviewLingot.vue";
 import AddField from "./components/AddField.vue";
 import Modal from "./components/Modal.vue";
 
-import { mapState, mapGetter, mapActions } from "vuex";
+import { mapState } from "vuex"; // , mapGetter, mapActions
 
 export default {
   name: "app",
   data() {
     return {
-      // lingot: [],
-      nuggets: [],
       output: "",
       editConfig: false,
       page_data: {
@@ -77,21 +65,10 @@ export default {
     Modal
   },
   methods: {
-    fillNuggetList(list) {
-      this.nuggets = list;
-    },
-    addToLingot(n) {
-      this.lingot.push({
-        component: n,
-        index: this.lingot.length
-      });
-    },
-    removeFromLingot(i) {
-      this.lingot.splice(i, 1);
-    },
     updateLingot(l) {
-      this.lingot = l;
-      if (this.output != "") this.exportTemplate();
+      void l;
+      // this.lingot = l;
+      // if (this.output != "") this.exportTemplate();
     },
 
     exportTemplate() {
@@ -115,8 +92,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["lingot"])
-    // ...mapGetter(["lingot"])
+    ...mapState(["lingot", "nuggets"])
   }
 };
 </script>

@@ -1,5 +1,9 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0163e8a1-bc34-42f0-b905-04ee12de9501/deploy-status)](https://app.netlify.com/sites/confident-leakey-2d5618/deploys)
 
+#### TODO
+[x] Seguire [questa guida](https://itnext.io/vuex-made-simple-getting-started-6bf229d432cf) per impelmentare vuex correttamente. Tutti i dati vanno spostati all'interno di vuex insieme alle funzioni per manipolarli. Questi attributi e funzioni possono poi essere usate all'interno dei componenti.
+[ ] Mettere a posto il draggable in Lingot (si è rotto con vuex)
+
 # postcards
 
 PWA che permette di creare template in html, pronti per essere utilizzati in mail builder. Le componenti sono chiamate Nugget, l'insieme di questi che compone un template è chiamato Ingot.

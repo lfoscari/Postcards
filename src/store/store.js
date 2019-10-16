@@ -5,18 +5,56 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        lingot: []
+        lingot: [],
+        nuggets: undefined
     },
 
     getters: {
-        // Here we will create a getter
+        LINGOT: state => {
+            return state.lingot
+        },
+
+        NUGGETS: state => {
+            return state.nuggets
+        }
     },
 
     mutations: {
-        // Here we will create Jenny
+        addToLingot(state, newNugget) {
+            state.lingot.push({
+                component: newNugget,
+                index: state.lingot.length
+            })
+        },
+
+        removeFromLingot(state, index) {
+            state.lingot.splice(index, 1)
+        },
+
+        updateLingot(state, newLingot) {
+            state.lingot = newLingot
+        },
+
+        initNuggetList(state, nuggetList) {
+            state.nuggets = nuggetList
+        }
     },
 
     actions: {
-        // Here we will create Larry
+        addToLingot(context, newNugget) {
+            context.commit('addToLingot', newNugget)
+        },
+
+        removeFromLingot(context, index) {
+            context.commit('removeFromLingot', index)
+        },
+
+        updateLingot(context, newLingot) {
+            context.commit('updateLingot', newLingot)
+        },
+
+        initNuggetList(context, nuggetList) {
+            context.commit('initNuggetList', nuggetList)
+        }
     }
-});
+})

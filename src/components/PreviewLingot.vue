@@ -22,7 +22,9 @@ import Vue from "vue";
 import CustomizeNugget from "./CustomizeNugget.vue";
 import Modal from "./Modal.vue";
 
-// Import all nuggets
+import { mapState } from "vuex"; // , mapGetter, mapActions
+
+// Import all nuggets in directory ./nuggets
 const req = require.context("./nuggets/", true, /\.(js|vue)$/i);
 req.keys().map(key => {
   const name = key.match(/\w+/)[0];
@@ -31,12 +33,12 @@ req.keys().map(key => {
 
 export default {
   name: "PreviewLingot",
-  props: {
-    lingot: Array
-  },
   components: {
     CustomizeNugget,
     Modal
+  },
+  computed: {
+    ...mapState(["lingot"])
   },
   data() {
     return {
@@ -53,8 +55,15 @@ export default {
     }
   },
   mounted() {
-    this.$emit(
-      "nuggetList",
+    // this.$emit(
+    //   "nuggetList",
+    //   req
+    //     .keys()
+    //     .map(l => l.match(/\w+/)[0])
+    //     .reverse()
+    // );
+    this.$store.dispatch(
+      "initNuggetList",
       req
         .keys()
         .map(l => l.match(/\w+/)[0])
