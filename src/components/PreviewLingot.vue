@@ -1,11 +1,14 @@
 <template>
-  <div>
+  <div class="preview-container">
     <div class="ignore-css">
       <div v-for="el in lingot" v-bind:key="el.index" v-on:click="customizeAttributes(el)">
         <keep-alive>
           <component :ref="el.index + '-' + el.component" v-bind:is="el.component"></component>
         </keep-alive>
       </div>
+    </div>
+    <div class="frame-container">
+      <iframe v-if="this.output != ''" :srcdoc="output"></iframe>
     </div>
     <Modal v-if="currentCustomization != undefined" v-on:closeModal="closeModal">
       <template v-slot:header></template>
@@ -40,6 +43,7 @@ export default {
   computed: {
     ...mapState(["lingot"])
   },
+  props: ["output"],
   data() {
     return {
       currentCustomization: undefined
@@ -55,13 +59,6 @@ export default {
     }
   },
   mounted() {
-    // this.$emit(
-    //   "nuggetList",
-    //   req
-    //     .keys()
-    //     .map(l => l.match(/\w+/)[0])
-    //     .reverse()
-    // );
     this.$store.dispatch(
       "initNuggetList",
       req
@@ -72,3 +69,24 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.preview-container {
+  height: 100%;
+}
+
+.frame-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.ignore-css {
+  display: none;
+}
+
+iframe {
+  height: 100%;
+  width: 100%;
+}
+</style>

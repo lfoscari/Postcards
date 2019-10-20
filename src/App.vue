@@ -4,7 +4,6 @@
       <div class="column vertical">
         <div>
           <Modal v-if="this.editConfig" v-on:closeModal="editConfig = false">
-            <button class="button" v-on:click="exportTemplate">Export</button>
             <pre style="margin-top: 20px"><code>{{ output }}</code></pre>
             <br />
             <div class="field">
@@ -16,7 +15,8 @@
             <AddField target="stylesheet" v-bind:archive="page_data.stylesheets"></AddField>
             <AddField target="script" v-bind:archive="page_data.scripts"></AddField>
           </Modal>
-          <button class="button is-light" v-on:click="editConfig = true">Configuration</button>
+          <button class="button is-light" v-on:click="openConfiguration">Configuration</button>&nbsp;
+          <button class="button is-light" v-on:click="exportTemplate">Export</button>
         </div>
         <hr />
         <!-- Lista componenti diponibili -->
@@ -26,10 +26,15 @@
         <div class="scroll">
           <Lingot></Lingot>
         </div>
+        <div class="scroll"></div>
       </div>
       <div class="column final scroll" ref="final">
         <!-- Preview componenti inseriti -->
-        <PreviewLingot v-on:clearExport="output = ''" v-bind:lingot="this.lingot"></PreviewLingot>
+        <PreviewLingot
+          v-bind:output="this.output"
+          v-on:clearExport="output = ''"
+          v-bind:lingot="this.lingot"
+        ></PreviewLingot>
       </div>
     </div>
   </div>
@@ -71,24 +76,29 @@ export default {
       // if (this.output != "") this.exportTemplate();
     },
 
+    openConfiguration() {
+      this.exportTemplate();
+      this.editConfig = true;
+    },
+
     exportTemplate() {
-      this.output = "<html>\n<head>\n";
+      this.output = "data:text/html,<html><head>";
       this.output +=
-        "\t<title>" +
+        "<title>" +
         (this.page_data.title != "" ? this.page_data.title : "Insert title") +
-        "</title>\n";
+        "</title>";
       this.page_data.stylesheets.forEach(
-        s => (this.output += `\t<link href="${s}" rel="stylesheet">\n`)
+        s => (this.output += `<link href="${s}" rel="stylesheet">`)
       );
       this.page_data.scripts.forEach(
         // Vue ha paura della parola <\script>...
         // eslint-disable-next-line
-        s => (this.output += `\t<script src="${s}"></\script>\n`)
+        s => (this.output += `<script src="${s}"></\script>`)
       );
       this.output +=
-        "</head>\n<body>\n\t" +
+        "</head><body>" +
         this.$refs.final.childNodes[0].childNodes[0].innerHTML +
-        "</body>\n</html>";
+        "</body></html>";
     }
   },
   computed: {
@@ -97,7 +107,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 @import url("assets/bulma.min.css");
 
 html,
@@ -121,9 +131,9 @@ body,
   flex-direction: column;
 }
 
-.ignore-css,
+/* .ignore-css,
 .ignore-css * {
   all: initial;
-  display: block;
-}
+  display: none;
+} */
 </style>
