@@ -18,7 +18,6 @@ export default {
   },
   methods: {
     addToLingotHandler(nugget) {
-      // this.addToLingot(nugget);
       this.$store.dispatch("addToLingot", nugget);
     }
   }

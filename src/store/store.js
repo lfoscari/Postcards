@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         lingot: [],
-        nuggets: undefined
+        nuggets: undefined,
+        max: 0 // Total number of nuggets used
     },
 
     getters: {
@@ -23,7 +24,7 @@ export default new Vuex.Store({
         addToLingot(state, newNugget) {
             state.lingot.push({
                 component: newNugget,
-                index: state.lingot.length
+                index: state.max++
             })
         },
 

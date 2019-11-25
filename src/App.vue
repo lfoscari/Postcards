@@ -4,8 +4,6 @@
       <div class="column vertical">
         <div>
           <Modal v-if="this.editConfig" v-on:closeModal="editConfig = false">
-            <pre style="margin-top: 20px"><code>{{ output }}</code></pre>
-            <br />
             <div class="field">
               <label class="label">Page title</label>
               <div class="control">
@@ -14,6 +12,8 @@
             </div>
             <AddField target="stylesheet" v-bind:archive="page_data.stylesheets"></AddField>
             <AddField target="script" v-bind:archive="page_data.scripts"></AddField>
+            <br />
+            <pre style="margin-top: 20px"><code>{{ output }}</code></pre>
           </Modal>
           <button class="button is-light" v-on:click="openConfiguration">Configuration</button>&nbsp;
           <button class="button is-light" v-on:click="exportTemplate">Export</button>
@@ -28,7 +28,7 @@
         </div>
         <div class="scroll"></div>
       </div>
-      <div class="column final scroll" ref="final">
+      <div class="column is-three-quarters final scroll" ref="final">
         <!-- Preview componenti inseriti -->
         <PreviewLingot
           v-bind:output="this.output"
@@ -70,19 +70,14 @@ export default {
     Modal
   },
   methods: {
-    updateLingot(l) {
-      void l;
-      // this.lingot = l;
-      // if (this.output != "") this.exportTemplate();
-    },
-
     openConfiguration() {
       this.exportTemplate();
       this.editConfig = true;
     },
 
     exportTemplate() {
-      this.output = "data:text/html,<html><head>";
+      // this.output = "data:text/html,<html><head>";
+      this.output = "";
       this.output +=
         "<title>" +
         (this.page_data.title != "" ? this.page_data.title : "Insert title") +
@@ -107,12 +102,20 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 @import url("assets/bulma.min.css");
 
 html,
+body {
+  height: 100vh;
+}
+
 body,
 .container {
+  height: 100%;
+}
+
+.columns {
   height: 100%;
 }
 
@@ -130,10 +133,4 @@ body,
   display: flex;
   flex-direction: column;
 }
-
-/* .ignore-css,
-.ignore-css * {
-  all: initial;
-  display: none;
-} */
 </style>

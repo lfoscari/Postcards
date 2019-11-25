@@ -1,6 +1,6 @@
 <template>
   <div class="preview-container">
-    <div class="ignore-css">
+    <div class="hide">
       <div v-for="el in lingot" v-bind:key="el.index" v-on:click="customizeAttributes(el)">
         <keep-alive>
           <component :ref="el.index + '-' + el.component" v-bind:is="el.component"></component>
@@ -81,7 +81,7 @@ export default {
   height: 100%;
 }
 
-.ignore-css {
+.hide {
   display: none;
 }
 
