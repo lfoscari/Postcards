@@ -16,7 +16,7 @@
             <pre style="margin-top: 20px"><code>{{ output }}</code></pre>
           </Modal>
           <button class="button is-light" v-on:click="openConfiguration">Configuration</button>&nbsp;
-          <button class="button is-light" v-on:click="exportTemplate">Export</button>
+          <!-- <button class="button is-light" v-on:click="exportTemplate">Export</button> -->
         </div>
         <hr />
         <!-- Lista componenti diponibili -->
@@ -30,11 +30,8 @@
       </div>
       <div class="column is-three-quarters final scroll" ref="final">
         <!-- Preview componenti inseriti -->
-        <PreviewLingot
-          v-bind:output="this.output"
-          v-on:clearExport="output = ''"
-          v-bind:lingot="this.lingot"
-        ></PreviewLingot>
+        <PreviewLingot v-on:lingotUpdate="lingotUpdate($event)"></PreviewLingot>
+        <!-- v-on:clearExport="output = ''" -->
       </div>
     </div>
   </div>
@@ -53,13 +50,13 @@ export default {
   name: "app",
   data() {
     return {
-      output: "",
+      lingotOutput: "",
       editConfig: false,
       page_data: {
         title: "",
         stylesheets: [],
-        scripts: []
-      }
+        scripts: [],
+      },
     };
   },
   components: {
@@ -67,38 +64,65 @@ export default {
     NuggetList,
     PreviewLingot,
     AddField,
-    Modal
+    Modal,
   },
   methods: {
     openConfiguration() {
-      this.exportTemplate();
+      // this.exportTemplate();
       this.editConfig = true;
     },
 
-    exportTemplate() {
-      // this.output = "data:text/html,<html><head>";
-      this.output = "";
-      this.output +=
-        "<title>" +
-        (this.page_data.title != "" ? this.page_data.title : "Insert title") +
-        "</title>";
+    lingotUpdate(event) {
+      console.log(event);
+    },
+
+    // exportTemplate() {
+    //   // TODO: Convert to computed property
+    //   // this.output = "data:text/html,<html><head>";
+    //   this.output = "";
+    //   this.output +=
+    //     "<title>" +
+    //     (this.page_data.title != "" ? this.page_data.title : "Insert title") +
+    //     "</title>\n";
+    //   this.page_data.stylesheets.forEach(
+    //     (s) => (this.output += `<link href="${s}" rel="stylesheet">`)
+    //   );
+    //   this.page_data.scripts.forEach(
+    //     // Vue ha paura della parola <\script>...
+    //     // eslint-disable-next-line
+    //     (s) => (this.output += `<script src="${s}"></\script>`)
+    //   );
+    //   this.output +=
+    //     "</head><body>" +
+    //     this.$refs.final.childNodes[0].childNodes[0].innerHTML +
+    //     "</body></html>";
+    // },
+  },
+  computed: {
+    ...mapState(["lingot", "nuggets"]),
+
+    pageTitle() {
+      return this.page_data.title != "" ? this.page_data.title : "Insert title";
+    },
+
+    output() {
+      var temp = "";
+      temp += `<title>${this.pageTitle}</title>\n`;
       this.page_data.stylesheets.forEach(
-        s => (this.output += `<link href="${s}" rel="stylesheet">`)
+        (s) => (temp += `<link href="${s}" rel="stylesheet">\n`)
       );
       this.page_data.scripts.forEach(
         // Vue ha paura della parola <\script>...
         // eslint-disable-next-line
-        s => (this.output += `<script src="${s}"></\script>`)
+        (s) => (temp += `<script src="${s}"></\script>\n`)
       );
-      this.output +=
-        "</head><body>" +
-        this.$refs.final.childNodes[0].childNodes[0].innerHTML +
-        "</body></html>";
-    }
+      temp += "</head><body>";
+      if (this.lingot.length > 0)
+        temp += this.$refs.final.childNodes[0].innerHTML;
+      temp += "</body></html>";
+      return temp;
+    },
   },
-  computed: {
-    ...mapState(["lingot", "nuggets"])
-  }
 };
 </script>
 

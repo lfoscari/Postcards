@@ -20,22 +20,22 @@ export default {
   //   draggable
   // },
   computed: {
-    ...mapState(["lingot"])
+    ...mapState(["lingot"]),
   },
   methods: {
     removeFromLingot(index) {
       this.$store.dispatch("removeFromLingot", index);
-    }
+    },
     // updateLingot() {
     //   this.$store.dispatch("updateLingot", this.lingotCopy);
     // }
-  }
+  },
 };
 </script>
 
 <style scoped>
 .button {
-  cursor: move;
+  /* cursor: move; */
   justify-content: flex-start;
 }
 

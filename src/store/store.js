@@ -10,15 +10,15 @@ export default new Vuex.Store({
         max: 0 // Total number of nuggets used
     },
 
-    getters: {
-        LINGOT: state => {
-            return state.lingot
-        },
+    // getters: {
+    //     LINGOT: state => {
+    //         return state.lingot
+    //     },
 
-        NUGGETS: state => {
-            return state.nuggets
-        }
-    },
+    //     NUGGETS: state => {
+    //         return state.nuggets
+    //     }
+    // },
 
     mutations: {
         addToLingot(state, newNugget) {
